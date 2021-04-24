@@ -10,10 +10,9 @@ This is a mid-term project of Optimization Methods, a course of Institute of Dat
 
 ## Code
 
--  `main.py`: the main program
-
 -  `args.py`: define the arguments parser
-
+-  `utils.py`: little tools
+-  `main.py`: the main program
 
 ## Usage
 
