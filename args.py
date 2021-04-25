@@ -10,6 +10,8 @@ def init_arguments():
     parser.add_argument('--y_label', type=str, default='classe', help='Column name of y (dependent variable)')
     parser.add_argument('--test_size', type=float, default=.25)
     parser.add_argument('--model_names', nargs='+', type=str, default=['logistic', 'regression'])
+    parser.add_argument('--ub_alpha', type=float, default=1.)
+    parser.add_argument('--lb_alpha', type=float, default=0.)
     parser.add_argument('--n_alphas', type=int, default=100, help='How many candidate alphas are going to be tuned?')
     parser.add_argument('--l1_ratio', nargs='+', type=float, default=[1.], help='L1 ratios that are going to be tuned. [0., 1.].')
     parser.add_argument('--max_iter', type=int, default=10000, help='Max. no. of interations')

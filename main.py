@@ -37,12 +37,13 @@ def main(args, model_name):
     X_tr, X_te, y_tr, y_te = train_test_split(
         df0.drop(args.y_label, axis=1), (df0[args.y_label] == b'A')*1, test_size=args.test_size)
     
-    L = args.n_alphas + 2
+    L = args.n_alphas + 1
+    D = args.ub_alpha - args.lb_alpha
     if model_name == 'logistic':
         model = LogisticRegression()
         params = {
             'penalty': ['l1'],
-            'C': 1 / np.arange(0, 1, 1/L)[1:-1],
+            'C': 1 / np.arange(args.lb_alpha, args.ub_alpha, D/L)[1:],
             'random_state': [args.random_state],
             'solver': ['liblinear'],
             'max_iter': [args.max_iter]
@@ -52,7 +53,7 @@ def main(args, model_name):
         #args.eval_metrics = ['mse', 'accuracy']
         #args.final_metric = 'mse'
         params = {
-            'alpha': np.arange(0, 1, 1/L)[1:-1],
+            'alpha': np.arange(args.lb_alpha, args.ub_alpha, D/L)[1:],
             'random_state': [args.random_state],
             'l1_ratio': [1],
             'max_iter': [args.max_iter]
@@ -95,8 +96,10 @@ def main(args, model_name):
     print('The testing performance is saved as', fn0)
     
     # save coefficients of tuned models
+    x = model.coef_[0] if model.coef_.ndim == 2 else model.coef_
+    print('# non-zero coefficients:', sum(x > 0))
     fn0 = fn0.replace('performance', 'coef')
-    np.savetxt(fn0, model.coef_)
+    np.savetxt(fn0, x)
     print('\nThe tuned model coefficients are saved as', fn0)
 
     # save the model
