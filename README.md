@@ -18,13 +18,13 @@ This is a mid-term project of Optimization Methods, a course of Institute of Dat
 
 1. Clone this repo.
 
-```
+```bash
 git clone https://github.com/jayenliao/Optimization-L1-regularization.git
 ```
 
 2. Run the experiments.
 
-```
+```bash
 cd Optimization-L1-regularization
 python3 main.py
 ```
